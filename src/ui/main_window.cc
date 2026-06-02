@@ -229,7 +229,31 @@ void MainWindow::onDumpXml() {
 }
 
 void MainWindow::onViewChar() {
-  Q_UNUSED(this);
+  debugLog("[DEBUG] onViewChar - START");
+  
+  if (!ttf_.is_open()) {
+    debugLog("[DEBUG] onViewChar - ttf not open");
+    return;
+  }
+
+  QString charStr = charEdit_->text();
+  debugLog("[DEBUG] onViewChar - charStr='" + charStr + "'");
+  
+  if (charStr.isEmpty()) {
+    debugLog("[DEBUG] onViewChar - charStr is empty");
+    return;
+  }
+
+  QChar ch = charStr.at(0);
+  debugLog("[DEBUG] onViewChar - QChar=" + QString::number(ch.unicode()));
+  
+  ttf_dll::GlyphId glyphIndex = ttf_.cmap().GetGlyphIndex(3, 1, ch.unicode());
+  debugLog("[DEBUG] onViewChar - glyphIndex=" + QString::number(glyphIndex));
+  
+  glyphIndexSpinBox_->setValue(glyphIndex);
+  onGlyphIndexChanged(glyphIndex);
+  
+  debugLog("[DEBUG] onViewChar - END");
 }
 
 void MainWindow::onGlyphIndexChanged(int index) {
