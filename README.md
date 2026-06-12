@@ -73,3 +73,12 @@ TTF File → TrueTypeFont::Open\(\) → Parse OffsetTable → Parse Subtables �
 
 **Function Description**: Main window class responsible for overall UI layout and user interaction
 
+
+
+## Author
+
+Yuming Xu
+
+---
+
+
